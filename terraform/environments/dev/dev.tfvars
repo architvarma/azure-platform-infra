@@ -23,3 +23,28 @@ tags = {
   owner       = "platform"
   managed_by  = "terraform"
 }
+
+aks_nsg_rules = [
+  {
+    name                       = "allow-kubelet-health"
+    priority                   = 100
+    direction                  = "Inbound"
+    access                     = "Allow"
+    protocol                   = "Tcp"
+    source_port_range          = "*"
+    destination_port_range     = "10250"
+    source_address_prefix      = "VirtualNetwork"
+    destination_address_prefix = "*"
+  },
+  {
+    name                       = "allow-node-internal"
+    priority                   = 110
+    direction                  = "Inbound"
+    access                     = "Allow"
+    protocol                   = "*"
+    source_port_range          = "*"
+    destination_port_range     = "*"
+    source_address_prefix      = "VirtualNetwork"
+    destination_address_prefix = "*"
+  }
+]

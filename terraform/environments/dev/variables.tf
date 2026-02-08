@@ -53,17 +53,16 @@ variable "aks" {
       vm_size    = string
       node_count = number
     })
-    user_node_pool = object({
-      name        = string
-      vm_size    = string
-      node_count = number
-    })
+    # user_node_pool = object({
+    #   name        = string
+    #   vm_size    = string
+    #   node_count = number
+    # })
   })
 }
 
 variable "aad_rbac" {
   type = object({
-    enabled                = bool
     azure_rbac_enabled     = bool
     admin_group_object_ids = list(string)
   })

@@ -39,6 +39,18 @@ resource "azurerm_subnet_network_security_group_association" "aks_nodes" {
   network_security_group_id = module.aks_nsg.nsg_id
 }
 
+data "azurerm_client_config" "current" {}
+
+module "keyvault" {
+  source = "../../modules/keyvault"
+
+  name                = var.key_vault_name
+  location            = var.location
+  resource_group_name = azurerm_resource_group.platform.name
+  tenant_id           = data.azurerm_client_config.current.tenant_id
+  tags                = var.tags
+}
+
 #5 AKS Cluster
 module "aks" {
   source = "../../modules/aks"
@@ -52,21 +64,25 @@ module "aks" {
   subnet_id = module.vnet.subnet_ids["aks_nodes"]
 
   system_node_pool = var.aks.system_node_pool
-  user_node_pool   = var.aks.user_node_pool
+  # user_node_pool   = var.aks.user_node_pool
 
   aad_rbac = var.aad_rbac
 
   tags = var.tags
+
+  depends_on = [
+    module.keyvault
+  ]
 }
 
-data "azurerm_client_config" "current" {}
+resource "azurerm_role_assignment" "aks_admins" {
+  scope                = module.aks.cluster_id
+  role_definition_name = "Azure Kubernetes Service RBAC Cluster Admin"
+  principal_id         = var.aad_rbac.admin_group_object_ids[0]
+}
 
-module "keyvault" {
-  source = "../../modules/keyvault"
-
-  name                = var.key_vault_name
-  location            = var.location
-  resource_group_name = azurerm_resource_group.platform.name
-  tenant_id           = data.azurerm_client_config.current.tenant_id
-  tags                = var.tags
+resource "azurerm_role_assignment" "aks_admins_2" {
+  scope                = module.aks.cluster_id
+  role_definition_name = "Azure Kubernetes Service RBAC Cluster Admin"
+  principal_id         = var.aad_rbac.admin_group_object_ids[1]
 }

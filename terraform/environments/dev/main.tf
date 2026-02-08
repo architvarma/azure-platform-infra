@@ -86,3 +86,29 @@ resource "azurerm_role_assignment" "aks_admins_2" {
   role_definition_name = "Azure Kubernetes Service RBAC Cluster Admin"
   principal_id         = var.aad_rbac.admin_group_object_ids[1]
 }
+
+
+module "observability" {
+  source = "../../modules/observability"
+
+  name                = var.observability_name
+  location            = var.location
+  resource_group_name = azurerm_resource_group.platform.name
+  aks_cluster_id      = module.aks.cluster_id
+
+  retention_days = var.observability_retention_days
+  alert_email    = var.observability_alert_email
+  tags           = var.tags
+}
+
+resource "azurerm_role_assignment" "tf_aks_contributor" {
+  scope                = module.aks.cluster_id
+  role_definition_name = "Azure Kubernetes Service Contributor Role"
+  principal_id         = var.aad_rbac.admin_group_object_ids[1]
+}
+
+resource "azurerm_role_assignment" "tf_monitoring_contributor" {
+  scope                = module.aks.cluster_id
+  role_definition_name = "Monitoring Contributor"
+  principal_id         = var.aad_rbac.admin_group_object_ids[1]
+}

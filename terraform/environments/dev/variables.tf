@@ -71,3 +71,27 @@ variable "aad_rbac" {
 variable "key_vault_name" {
   type = string
 }
+
+################################
+# Observability (Day 9)
+################################
+
+variable "observability_name" {
+  type        = string
+  description = "Name for observability resources"
+}
+
+variable "observability_retention_days" {
+  type        = number
+  description = "Log Analytics retention days"
+}
+
+variable "observability_alert_email" {
+  type        = string
+  description = "Email for Azure Monitor alerts"
+}
+
+# variable "terraform_principal_object_id" {
+#   description = "Object ID of the user / SP / MI running Terraform"
+#   type        = string
+# }

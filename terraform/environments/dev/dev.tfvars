@@ -74,3 +74,13 @@ aad_rbac = {
 }
 
 key_vault_name = "kv-platform-dev-arc"
+
+################################
+# Observability (DEV)
+################################
+
+observability_name           = "obs-aks-dev"
+observability_retention_days = 30
+observability_alert_email    = "archit5697@gmail.com"
+
+# terraform_principal_object_id = "04b07795-8ddb-461a-bbee-02f9e1bf7b46"

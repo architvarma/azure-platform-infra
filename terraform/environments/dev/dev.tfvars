@@ -48,3 +48,29 @@ aks_nsg_rules = [
     destination_address_prefix = "*"
   }
 ]
+
+aks = {
+  name               = "aks-platform-dev"
+  dns_prefix         = "aksdev"
+  kubernetes_version = "1.34.2"
+
+  system_node_pool = {
+    vm_size    = "Standard_DC2ds_v3"
+    node_count = 1
+  }
+
+#   user_node_pool = {
+#     name        = "usernp"
+#     vm_size    = "Standard_DC2ds_v3"
+#     node_count = 2
+#   }
+}
+
+aad_rbac = {
+  azure_rbac_enabled     = true
+  admin_group_object_ids = [
+    "3dd68030-2de6-439f-9a8d-917fd389447a", "a8d8e545-f3f9-42d2-ae8e-0d450ef0bb2e"
+  ]
+}
+
+key_vault_name = "kv-platform-dev-arc"

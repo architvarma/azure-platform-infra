@@ -43,3 +43,20 @@ variable "aks_nsg_rules" {
     destination_address_prefix = string
   }))
 }
+
+variable "aks" {
+  type = object({
+    name               = string
+    dns_prefix         = string
+    kubernetes_version = string
+    system_node_pool = object({
+      vm_size    = string
+      node_count = number
+    })
+    user_node_pool = object({
+      name        = string
+      vm_size    = string
+      node_count = number
+    })
+  })
+}

@@ -38,3 +38,21 @@ resource "azurerm_subnet_network_security_group_association" "aks_nodes" {
   subnet_id                 = module.vnet.subnet_ids["aks_nodes"]
   network_security_group_id = module.aks_nsg.nsg_id
 }
+
+#5 AKS Cluster
+module "aks" {
+  source = "../../modules/aks"
+
+  name                = var.aks.name
+  location            = var.location
+  resource_group_name = azurerm_resource_group.platform.name
+  dns_prefix          = var.aks.dns_prefix
+  kubernetes_version  = var.aks.kubernetes_version
+
+  subnet_id = module.vnet.subnet_ids["aks_nodes"]
+
+  system_node_pool = var.aks.system_node_pool
+  user_node_pool   = var.aks.user_node_pool
+
+  tags = var.tags
+}

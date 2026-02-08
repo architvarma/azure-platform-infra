@@ -48,3 +48,20 @@ aks_nsg_rules = [
     destination_address_prefix = "*"
   }
 ]
+
+aks = {
+  name               = "aks-platform-dev"
+  dns_prefix         = "aksdev"
+  kubernetes_version = "1.29.2"
+
+  system_node_pool = {
+    vm_size    = "Standard_DS2_v2"
+    node_count = 1
+  }
+
+  user_node_pool = {
+    name        = "usernp"
+    vm_size    = "Standard_DS3_v2"
+    node_count = 2
+  }
+}

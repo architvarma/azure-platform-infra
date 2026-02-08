@@ -5,6 +5,8 @@ resource "azurerm_kubernetes_cluster" "this" {
   dns_prefix          = var.dns_prefix
   kubernetes_version  = var.kubernetes_version
   private_cluster_enabled = true
+  oidc_issuer_enabled       = var.workload_identity_enabled
+  workload_identity_enabled = var.workload_identity_enabled
 
   identity {
     type = "SystemAssigned"

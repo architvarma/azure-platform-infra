@@ -70,6 +70,8 @@ aad_rbac = {
   enabled                = true
   azure_rbac_enabled     = true
   admin_group_object_ids = [
-    "<AAD-GROUP-OBJECT-ID>"
+    "3dd68030-2de6-439f-9a8d-917fd389447a"
   ]
 }
+
+key_vault_name = "kv-platform-dev"

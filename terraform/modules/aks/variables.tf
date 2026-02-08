@@ -48,3 +48,8 @@ variable "aad_rbac" {
     admin_group_object_ids = list(string)
   })
 }
+
+variable "workload_identity_enabled" {
+  type    = bool
+  default = true
+}

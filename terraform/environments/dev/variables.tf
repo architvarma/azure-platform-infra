@@ -68,3 +68,7 @@ variable "aad_rbac" {
     admin_group_object_ids = list(string)
   })
 }
+
+variable "key_vault_name" {
+  type = string
+}

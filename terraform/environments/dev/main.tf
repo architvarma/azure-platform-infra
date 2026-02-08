@@ -54,5 +54,7 @@ module "aks" {
   system_node_pool = var.aks.system_node_pool
   user_node_pool   = var.aks.user_node_pool
 
+  aad_rbac = var.aad_rbac
+
   tags = var.tags
 }

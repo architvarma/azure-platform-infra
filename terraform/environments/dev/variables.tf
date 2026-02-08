@@ -60,3 +60,11 @@ variable "aks" {
     })
   })
 }
+
+variable "aad_rbac" {
+  type = object({
+    enabled                = bool
+    azure_rbac_enabled     = bool
+    admin_group_object_ids = list(string)
+  })
+}

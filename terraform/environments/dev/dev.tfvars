@@ -65,3 +65,11 @@ aks = {
     node_count = 2
   }
 }
+
+aad_rbac = {
+  enabled                = true
+  azure_rbac_enabled     = true
+  admin_group_object_ids = [
+    "<AAD-GROUP-OBJECT-ID>"
+  ]
+}

@@ -23,6 +23,11 @@ resource "azurerm_kubernetes_cluster" "this" {
     orchestrator_version = var.kubernetes_version
   }
 
+  azure_active_directory_role_based_access_control {
+    azure_rbac_enabled     = var.aad_rbac.azure_rbac_enabled
+    admin_group_object_ids = var.aad_rbac.admin_group_object_ids
+  }
+
   tags = var.tags
 }
 
